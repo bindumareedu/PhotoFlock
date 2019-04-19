@@ -4,7 +4,7 @@ session_start();
 if (isset($_GET['email']) and isset($_GET['pass'])){
 //3.1.1 Assigning posted values to variables.
 $username = $_GET['email'];
-$password = $_GET['pass'];
+$password = sha1($_GET['pass']);
 //3.1.2 Checking the values are existing in the database or not
  $query = "SELECT * FROM public.users_info WHERE email='$username' and pass='$password'";
 $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
