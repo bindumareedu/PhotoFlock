@@ -14,12 +14,12 @@ if ($count >= 1){
 $_SESSION['username'] = $username;
 }else{
 //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-header('Location: http://ella.ils.indiana.edu/~smareedu/project/loginfail.html');
+header('Location: ../loginfail.html');
 }
 if (isset($_SESSION['username'])){
   // I'm re-directing it to index page for now.
   // But needs to be pointed to DASHBOARD.
-header('Location: http://ella.ils.indiana.edu/~smareedu/project/index.html');
+header('Location: ../dashboard.html');
  }
  else{
    echo "something went wrong, please try again!";
