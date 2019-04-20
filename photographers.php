@@ -102,7 +102,7 @@
 
                                 // <!-- Single Blog Area -->
                                 require('./backend/connect.php');
-                                $query="SELECT fname,lname,designation,about FROM public.users_info";
+                                $query="SELECT email,fname,lname,designation,about FROM public.users_info";
                                 $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
                                 $arr=pg_fetch_all($result);
                                 if(pg_num_rows($result) > 0){
@@ -114,6 +114,7 @@
                                 $lname=$arr[$i]['lname'];
                                 $tag=$arr[$i]['designation'];
                                 $about=$arr[$i]['about'];
+                                $id = $arr[$i]['email'];
                                 echo '<div class="col-10">';
                                 echo '<div class="single-blog-area text-center mb-100 wow fadeInUpBig" data-wow-delay="100ms" data-wow-duration="1s">';
                                 echo   '<div class="blog-thumbnail mb-100">';
@@ -124,7 +125,7 @@
                                 echo  '<h2>' .$lname . "," .$fname. '</h2>';
                                 echo  '<a href="#" class="post-author">' .$tag. '</a>';
                                 echo "<p>" .$about. "</p>";
-                                echo ' <a href="portfolio.html" class="btn studio-btn"><img src="img/core-img/logo-icon.png" alt=""> Visit Portfolio</a>';
+                                echo ' <a href="portfolio.php?id='.$id.'" class="btn studio-btn"><img src="img/core-img/logo-icon.png" alt=""> Visit Portfolio </a>';
                                 echo  "</div>";
                                 echo "</div>";
                                 echo "</div>";
