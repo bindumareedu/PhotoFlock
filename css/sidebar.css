@@ -1,0 +1,75 @@
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #616161; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 200px;
+  margin-left: 120px;
+}
+/* image */
+.imgnav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 120px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.portfolioimg {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  width: "150px";
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 16px 16px 16px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.7);
+  display: block;
+  text-align: right;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
+  margin-left: 230px; /* Same as the width of the sidebar */
+  padding-top: 100px;
+  /* background-color: #ff6e40; Black */
+  min-height: -webkit-fill-available;
+  background: rgb(158, 158, 158);
+  background: linear-gradient(
+    175deg,
+    rgba(158, 158, 158, 1) 0%,
+    rgba(245, 245, 245, 1) 34%
+  );
+
+  /* background: linear-gradient(#f67e7d, #f9c2c2, #f6e8e8); */
+  /* linear-gradient(#ada996, #f2f2f2, #dbdbdb, #eaeaea); */
+
+  padding-left: 3%;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
