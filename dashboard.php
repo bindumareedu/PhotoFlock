@@ -45,8 +45,14 @@
 <![endif]-->
 </head>
 
-<body class="fix-header fix-sidebar card-no-border">
+<body class="fix-header fix-sidebar card-no-border" style="background-color:#f4f6f9">
 
+    <style>
+        .close-icon {
+            cursor: pointer;
+        }
+    </style>
+    
     <!-- Gradient Background Overlay -->
     <div class="gradient-background-overlay"></div>
 
@@ -107,7 +113,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid" id="container">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -116,35 +122,52 @@
                         <h3 class="text-themecolor">Dashboard</h3>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Sales overview chart -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-lg-9 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div>
-                                        <h3 class="card-title m-b-5"><span class="lstick"></span>Sales Overview </h3>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <select class="custom-select b-0">
-                                            <option selected="">January 2017</option>
-                                            <option value="1">February 2017</option>
-                                            <option value="2">March 2017</option>
-                                            <option value="3">April 2017</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="sales-overview2" class="p-relative" style="height:360px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+                <?php 
+                    session_start();
+                    if(isset($_SESSION['username'])){
+                        
+                        $username = $_SESSION['username'];
+                        // echo '<script language="javascript">';
+                        // echo 'alert("'.$username.'Hello!")';
+                        // echo '</script>';
+                        require('./backend/connect.php');
+                        
+                        $query="SELECT guest_email,guest_name,message_subject,message_body FROM public.messages WHERE photographer_id='$username' and read_msg=0";
+                        $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                        // $arr=pg_fetch_all($result);
+                        if(pg_num_rows($result) > 0){
+                            $i=0;
+                            $arr=pg_fetch_all($result);
+                            while($i < pg_num_rows($result))
+                            {
+                                $guest_email=$arr[$i]['guest_email'];
+                                $guest_name=$arr[$i]['guest_name'];
+                                $message_subject=$arr[$i]['message_subject'];
+                                $message_body=$arr[$i]['message_body'];
+                                // $id = $arr[$i]['email'];
+                                echo '<div class="card" style="width:30%;height:50%;float:left;margin-right:2%;">';
+                                echo '<div class="card-body">';
+                                echo '<span class="pull-right clickable close-icon" data-effect="fadeOut" style="float:right;"><i class="fa fa-times"></i></span>';
+                                echo '<div class="d-flex">';
+                                echo '<div>';
+                                echo '<h3 class="card-title m-b-5"><span class="lstick"></span>Message</h3>';
+                                echo '<p>';
+                                echo '<b>From: </b>'.$guest_name.'<br>';
+                                echo "<b>Email: </b>".$guest_email."<br>";
+                                echo ' <b>Subject: </b>'.$message_subject.'<br>';
+                                echo  "<b>Message: </b>".$message_body;
+                                echo "</p>";
+                                echo "</div></div></div></div>";
+                                $i=$i+1;
+                            }
+                        }
+                        else {
+                            echo '<script language="javascript">';
+                            echo "alert('No messages!')";
+                            echo '</script>';
+                        }
+                    }
+                ?>
                 <!-- ============================================================== -->
                 <!-- End Page Content -->
                 <!-- ============================================================== -->
@@ -188,6 +211,42 @@
     <script src="../assets/plugins/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
     <script src="js/dashboard.js"></script>
-</body>
 
+
+    <script>
+        // var tile = document.getElementById("")
+        $('.close-icon').on('click',function() {
+            $(this).closest('.card').fadeOut();
+        });
+
+        // $(document).ready(function () {
+
+        //     var url = 'backend/dashboard.php';
+        //     $.ajax({
+        //         type:'GET',
+        //         // dataType:'json',
+        //         data: {
+        //             user_profile_id: sessionStorage.getItem("user")
+        //         },
+        //         url: api_url,
+        //         success: function(garages) {
+        //             console.log(garages);
+        //             var index = 1;
+        //             garages.forEach(element => {
+        //                 var div_col = document.createElement("div");
+        //                 div_col.className = "col-sm-6 col-lg-3";
+        //                 div_col.innerHTML = "<div class='overview-item overview-item--c4'><div class='overview__inner'><div class='overview-box clearfix'><div class='text'><h2>Parking Garage "+index+"</h2><span>"+element.numSpots+" spots</span></div></div></div></div>";
+        //                 console.log(element);
+        //                 tile.appendChild(div_col);
+        //                 index++;
+        //             })
+        //         },
+        //         error: function (textStatus, errorThrown) {
+        //             console.log(textStatus);
+        //             console.log(errorThrown);
+        //         }
+        //     });
+        // });
+    </script>
+</body>
 </html>

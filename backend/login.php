@@ -20,7 +20,7 @@
     if (isset($_SESSION['username'])){
       // I'm re-directing it to index page for now.
       // But needs to be pointed to DASHBOARD.
-      header('Location: ../dashboard.html');
+      header('Location: ../dashboard.php');
     }
     else{
       echo "something went wrong, please try again!";

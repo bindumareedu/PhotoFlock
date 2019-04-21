@@ -103,10 +103,10 @@
                         <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Subject" required="" name="Subject" id="Subject"></p>
                         <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required="" name="Message" id="Message"></p>
                         <p>
-                            <!-- <button class="w3-button w3-light-grey w3-padding-large" type="submit" onSubmit="formSubmit()">
+                            <button class="w3-button w3-light-grey w3-padding-large" type="submit">
                                 <i class="fa fa-paper-plane"></i> SEND MESSAGE
-                            </button> -->
-                            <input class="w3-button w3-light-grey w3-padding-large" type="submit" name="submit"value="SEND MESSAGE"><i class="fa fa-paper-plane"></i>
+                            </button>
+                            <!-- <input class="w3-button w3-light-grey w3-padding-large" type="submit" name="submit"value="SEND MESSAGE"><i class="fa fa-paper-plane"></i> -->
                         </p>
                     </form>
                 </div>
@@ -183,13 +183,17 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script>
                 $("#contactForm").submit(function () {
-                    console.log("Hello");
+                    // console.log("Hello");
                     event.preventDefault();
                     var username = document.getElementById("username").value;
                     var Name = document.getElementById("Name").value;
                     var Email = document.getElementById("Email").value;
                     var Subject = document.getElementById("Subject").value;
                     var Message = document.getElementById("Message").value;
+                    document.getElementById("Name").value = "";
+                    document.getElementById("Email").value = "";
+                    document.getElementById("Subject").value = "";
+                    document.getElementById("Message").value = "";
                     // var username = document.getElementbyId("username").value();
                     $.ajax({
                         url: 'backend/contact.php',
