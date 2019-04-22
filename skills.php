@@ -35,16 +35,26 @@
             </style>
         </head>
         <body>
+        <!-- get the id from the previous page -->
+        <?php
+                if (isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $_SESSION['username'] = $id;    
+                }
+            ?>
 
             <!-- Sidebar with image -->
              <div class="imgnav" >
             <img src="./img/core-img/side.jpg" class="portfolioimg"  height="-webkit-fill-available" />
                        </div>
 <div class="sidenav" >
-  <a id="side" href="portfolio.html">About</a>
-  <a id="side" href="gallery.html">Gallery</a>
-  <a   id="active" href="#">Skills</a>
-  <a  id="side" href="portfoliocontact.html">Contact Me</a>
+<?php
+              echo  '<a id="side" href="portfolio.php?id=' .$id. '">About</a>' ;
+             echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
+             echo   '<a id="active" href="skills.php?id=' .$id . '">Skills</a>' ;
+            echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
+            
+            ?>  
 </div>            
 <div class="main" style="margin-left:300px;padding-top:150px; ">
             <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="about">

@@ -48,10 +48,13 @@
                 <img src="./img/core-img/side.jpg" class="portfolioimg"  height="-webkit-fill-available" />
             </div>
             <div class="sidenav" >
-                <a id="active" href="#">About</a>
-                <a id="side" href="gallery.html">Gallery</a>
-                <a id="side" href="skills.html">Skills</a>
-                <a  id="side" href="portfoliocontact.php">Contact Me</a>
+            <?php
+              echo  '<a id="active" href="portfolio.php?id=' .$id. '">About</a>' ;
+             echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
+             echo   '<a id="side" href="skills.php?id=' .$id . '">Skills</a>' ;
+             echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
+            
+            ?>   
             </div>            
             <div class="main">
             <div class="row justify-content-center">
@@ -115,7 +118,7 @@
                                                         <a class="nav-link" href="about-me.html">About</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="photographers.php">Photographers</a>
+                                                      <?php echo '<a class="nav-link" href="photographers.php?" '. $id .'> Photographers</a>'; ?>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="contact.html">Contact</a>

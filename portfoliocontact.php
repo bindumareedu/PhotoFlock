@@ -36,51 +36,55 @@
         </head>
         <body>
             <?php  
-                session_start();
                 if (isset($_SESSION['username'])){
-                    $username = $_SESSION['username'];
+                    $id = $_GET['username'];
+                    $username=$id;
+                    $_SESSION['username'] = $id;
                 }
-                if(isset($_GET['message'])){
-                    $msg_status = $_GET['message'];
-                    if($msg_status == "sent"){
-                        echo '<script language="javascript">';
-                        echo 'alert("Message successfully sent!")';
-                        echo '</script>';
-                    }
-                }
-                // require('connect.php');
-                // if (isset($_GET['username']) and isset($_GET['Name']) and isset($_GET['Subject']) and isset($_GET['Email'])){
-                //     //3.1.1 Assigning posted values to variables.
-                //     $photographer = $_GET['username'];
-                //     $customer = $_GET['Name'];
-                //     $customer_email = $_GET['Email'];
-                //     $msg_subject = $_GET['Subject'];
-            
-                //     if(isset($_GET['Message'])){
-                //         $msg = $_GET['Message'];
+                // if(isset($_GET['message'])){
+                //     $msg_status = $_GET['message'];
+                //     if($msg_status == "sent"){
+                //         echo '<script language="javascript">';
+                //         echo 'alert("Message successfully sent!")';
+                //         echo '</script>';
                 //     }
+                //  }
+                // // require('connect.php');
+                // // if (isset($_GET['username']) and isset($_GET['Name']) and isset($_GET['Subject']) and isset($_GET['Email'])){
+                // //     //3.1.1 Assigning posted values to variables.
+                // //     $photographer = $_GET['username'];
+                // //     $customer = $_GET['Name'];
+                // //     $customer_email = $_GET['Email'];
+                // //     $msg_subject = $_GET['Subject'];
             
-                //     // echo $username;
+                // //     if(isset($_GET['Message'])){
+                // //         $msg = $_GET['Message'];
+                // //     }
             
-                //     $query = "INSERT INTO public.messages(photographer_id,guest_email,guest_name,message_subject,message_body) VALUES ('$photographer','$customer','$customer_email','$msg_subject','$msg_body')";
-                //     $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
-                //     if($result){
-                //         header('Location: ../portfoliocontact.php?message=sent');
-                //     }
-                //     else {
-                //         echo "Error!!";
-                //     }
-                // }
+                // //     // echo $username;
+            
+                // //     $query = "INSERT INTO public.messages(photographer_id,guest_email,guest_name,message_subject,message_body) VALUES ('$photographer','$customer','$customer_email','$msg_subject','$msg_body')";
+                // //     $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                // //     if($result){
+                // //         header('Location: ../portfoliocontact.php?message=sent');
+                // //     }
+                // //     else {
+                // //         echo "Error!!";
+                // //     }
+                // // }
             ?>
             <!-- Sidebar with image -->
             <div class="imgnav" >
                 <img src="./img/core-img/side.jpg" class="portfolioimg"  height="-webkit-fill-available" />
             </div>
             <div class="sidenav" >
-                <a id="side" href="portfolio.html">About</a>
-                <a id="side" href="gallery.html">Gallery</a>
-                <a id="side" href="skills.html">Skills</a>
-                <a  id="active" href="#">Contact Me</a>
+            <?php
+              echo  '<a id="side" href="portfolio.php?id=' .$id. '">About</a>' ;
+             echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
+             echo   '<a id="side" href="skills.php?id=' .$id . '">Skills</a>' ;
+            echo  '<a  id="active" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
+            
+            ?>  
             </div>            
             <div class="main">
                 <!-- Single Blog Area -->
