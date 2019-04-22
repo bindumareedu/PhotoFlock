@@ -52,5 +52,5 @@ header('Location: http://ella.ils.indiana.edu/~smareedu/project/registersuccess.
 // header('Location: http://ella.ils.indiana.edu/~smareedu/login/home.php');
 // exit;
 //  }
-
+pg_close($connection);
 ?>

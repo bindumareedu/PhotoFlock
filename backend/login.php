@@ -26,6 +26,7 @@
       echo "something went wrong, please try again!";
     }
   }
+  pg_close($connection);
   //3.1.4 if the user is logged in Greets the user with message
 
 ?>

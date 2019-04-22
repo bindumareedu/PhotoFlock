@@ -78,6 +78,8 @@
                 echo 'error';
             }
         }
+
+        pg_close($connection);
         // echo 'success';
     }
 ?>

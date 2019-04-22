@@ -11,4 +11,5 @@
   	  $name_error = "Sorry, An account exists with this email ID";
   	}
   }
+  pg_close($connection);
  ?>
