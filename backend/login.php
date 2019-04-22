@@ -5,6 +5,8 @@
     //3.1.1 Assigning posted values to variables.
     $username = $_GET['email'];
     $password = sha1($_GET['pass']);
+    echo "$password";
+  
     //3.1.2 Checking the values are existing in the database or not
     $query = "SELECT * FROM public.users_info WHERE email='$username' and pass='$password'";
     $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
@@ -27,6 +29,6 @@
     }
   }
   pg_close($connection);
-  //3.1.4 if the user is logged in Greets the user with message
+//  3.1.4 if the user is logged in Greets the user with message
 
 ?>
