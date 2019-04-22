@@ -22,7 +22,7 @@
             <link href="css/responsive.css" rel="stylesheet">
             <style>
                 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-                .w3-row-padding img {margin-bottom: 12px}
+                .w3-row-padding img {margin-bottom: 12px; float:left;}
                 .bgimg {
                 background-position: center;
                 background-repeat: no-repeat;
@@ -58,8 +58,39 @@
 </div>            
 <div class="main" style="margin-left:270px; ">
                         <div class="w3-row-padding" >
-                <div class="w3-half " style="">
-                    <img src="./W3.CSS Template_files/wedding.jpg" style="width:100%">
+                <div class="w3-half container-fluid">
+                        <?php 
+                            session_start();
+                            if(isset($_SESSION['username'])){
+                                
+                                $username = $_SESSION['username'];
+                                require('backend/connect.php');
+                                
+                                $query="SELECT name FROM public.imagestore WHERE photographer_id='$username'";
+                                $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                                if(pg_num_rows($result) > 0){
+                                    $i=0;
+                                    $arr=pg_fetch_all($result);
+                                    while($i < pg_num_rows($result))
+                                    {
+                                        $img_file="upload/".$arr[$i]['name'];
+                                        echo '<img src="'.$img_file.'">';
+                                        // if($i == (pg_num_rows($result)/2) ){
+                                        //     echo '</div';
+                                        //     echo '<div class="w3-half">';
+                                        // }
+                                        $i=$i+1;
+                                    }
+                                }
+                                else {
+                                    echo '<script language="javascript">';
+                                    echo "alert('No images!')";
+                                    echo '</script>';
+                                }
+                            }
+                            pg_close($connection);
+                        ?>
+                    <!-- <img src="./W3.CSS Template_files/wedding.jpg" style="width:100%">
                     <img src="./W3.CSS Template_files/rocks.jpg" style="width:100%">
                     <img src="./W3.CSS Template_files/sailboat.jpg" style="width:100%">
                 </div>
@@ -69,8 +100,9 @@
                     <img src="./W3.CSS Template_files/chef.jpg" style="width:100%">
                     <img src="./W3.CSS Template_files/wedding.jpg" style="width:100%">
                     <img src="./W3.CSS Template_files/p6.jpg" style="width:100%">
-                </div>
+                </div> -->
                 <!-- End photo grid -->
+                        </div>
                 </div>
             <!-- Hidden Sidebar (reveals when clicked on menu icon)-->
             <nav class="w3-sidebar w3-black w3-animate-right w3-xxlarge" style="display:none;padding-top:150px;right:0;z-index:2" id="mySidebar">

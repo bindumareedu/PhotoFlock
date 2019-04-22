@@ -20,12 +20,13 @@
     if (isset($_SESSION['username'])){
       // I'm re-directing it to index page for now.
       // But needs to be pointed to DASHBOARD.
-      header('Location: ../dashboard.php');
+      header('Location: ../pages-profile.php');
     }
     else{
       echo "something went wrong, please try again!";
     }
   }
+  pg_close($connection);
   //3.1.4 if the user is logged in Greets the user with message
 
 ?>

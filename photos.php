@@ -10,22 +10,13 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Admin Pro Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
+    <title>Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- This page CSS -->
-    <!-- chartist CSS -->
-    <link href="css/chartist.min.css" rel="stylesheet">
-    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <!--c3 CSS -->
-    <link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/dashboard-style.css" rel="stylesheet">
-    <!-- Dashboard 1 Page CSS -->
-    <link href="css/pages/dashboard.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="css/default-dark.css" id="theme" rel="stylesheet">
-
 
     <link href="css/sidebar.scss" rel="stylesheet">
      <!-- Favicon  -->
@@ -37,6 +28,7 @@
  
      <!-- Responsive CSS -->
      <link href="css/responsive.css" rel="stylesheet">
+     <!-- <link href="netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,14 +37,22 @@
 <![endif]-->
 </head>
 
-<body class="fix-header fix-sidebar card-no-border" style="background-color:#f4f6f9">
-
+<body class="fix-header card-no-border fix-sidebar">
     <style>
-        .close-icon {
-            cursor: pointer;
+        .w3-row-padding img {
+            width: 500px;
+            margin-right: 3%;
+            margin-bottom: 3%;
         }
     </style>
-    
+
+    <?php  
+        session_start();
+        if (isset($_SESSION['username'])){
+            $username = $_SESSION['username'];
+        }
+    ?>
+
     <!-- Gradient Background Overlay -->
     <div class="gradient-background-overlay"></div>
 
@@ -84,7 +84,6 @@
         </div>
     </header>
     <!-- Header Area End -->
-    
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -113,68 +112,84 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid" id="container">
+            <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <div class="row page-titles">
-                    <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Dashboard</h3>
+                    <div class="col-md-6 align-self-center">
+                        <h3 class="text-themecolor">Photos</h3>
+                        <!-- <button class="btn btn-success">Upload Photos</button> -->
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <form method="post" action="save_path.php" enctype='multipart/form-data'>
+                            <input type='file' name='file' />
+                            <button class="btn btn-success" type='submit'>Upload Photos</button>
+                        </form>
+                    </div> -->
+                </div>
+                <form class="form-inline" method="post" action="save_path.php" enctype='multipart/form-data' style="margin-bottom:3%;">
+                    <input type="hidden" name="username" value="<?php echo htmlspecialchars($username);?>">
+                    <input type='file' name='file' />
+                    <select class="form-control" name="category" style="margin-right:0.5%">
+                        <option value="" selected disabled>Category</option>
+                        <option>Portraits</option>
+                        <option>Weddings</option>
+                        <option>Studio</option>
+                        <option>Fashion</option>
+                        <option>Lifestyle</option>
+                        <option>Nature</option>
+                        <option>Other</option>
+                    </select>
+                    <input type="text" placeholder="tags" class="form-control form-control-line" name="tags" style="margin-right:0.5%">
+                    <input class="btn btn-success" type='submit' value='Upload Photos' name='but_upload'>
+                    <!-- <button class="btn btn-success" type='submit'name='but_upload'>Upload Photos</button> -->
+                </form>
+                <div class="w3-row-padding">
+                    <div class="w3-half ">
+                        <?php 
+                            session_start();
+                            if(isset($_SESSION['username'])){
+                                
+                                $username = $_SESSION['username'];
+                                require('backend/connect.php');
+                                
+                                $query="SELECT name FROM public.imagestore WHERE photographer_id='$username'";
+                                $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                                if(pg_num_rows($result) > 0){
+                                    $i=0;
+                                    $arr=pg_fetch_all($result);
+                                    while($i < pg_num_rows($result))
+                                    {
+                                        $img_file="upload/".$arr[$i]['name'];
+                                        echo '<img src="'.$img_file.'">';
+                                        $i=$i+1;
+                                    }
+                                }
+                                else {
+                                    echo '<script language="javascript">';
+                                    echo "alert('No images!')";
+                                    echo '</script>';
+                                }
+                            }
+                            pg_close($connection);
+                        ?>
                     </div>
                 </div>
-                <?php 
-                    session_start();
-                    if(isset($_SESSION['username'])){
-                        
-                        $username = $_SESSION['username'];
-                        // echo '<script language="javascript">';
-                        // echo 'alert("'.$username.'Hello!")';
-                        // echo '</script>';
-                        require('./backend/connect.php');
-                        
-                        $query="SELECT guest_email,guest_name,message_subject,message_body FROM public.messages WHERE photographer_id='$username' and read_msg=0";
-                        $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
-                        // $arr=pg_fetch_all($result);
-                        if(pg_num_rows($result) > 0){
-                            $i=0;
-                            $arr=pg_fetch_all($result);
-                            while($i < pg_num_rows($result))
-                            {
-                                $guest_email=$arr[$i]['guest_email'];
-                                $guest_name=$arr[$i]['guest_name'];
-                                $message_subject=$arr[$i]['message_subject'];
-                                $message_body=$arr[$i]['message_body'];
-                                // $id = $arr[$i]['email'];
-                                echo '<div class="card" style="width:30%;height:50%;float:left;margin-right:2%;">';
-                                echo '<div class="card-body">';
-                                echo '<span class="pull-right clickable close-icon" data-effect="fadeOut" style="float:right;"><i class="fa fa-times"></i></span>';
-                                echo '<div class="d-flex">';
-                                echo '<div>';
-                                echo '<h3 class="card-title m-b-5"><span class="lstick"></span>Message</h3>';
-                                echo '<p>';
-                                echo '<b>From: </b>'.$guest_name.'<br>';
-                                echo "<b>Email: </b>".$guest_email."<br>";
-                                echo ' <b>Subject: </b>'.$message_subject.'<br>';
-                                echo  "<b>Message: </b>".$message_body;
-                                echo "</p>";
-                                echo "</div></div></div></div>";
-                                $i=$i+1;
-                            }
-                        }
-                        else {
-                            echo '<script language="javascript">';
-                            echo "alert('No messages!')";
-                            echo '</script>';
-                        }
-                    }
-                    pg_close($connection);
-                ?>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
             </div>
         </div>
     </div>
-
-    <script src="js/jquery/jquery.min.js"></script>
-    <!-- Bootstrap popper Core JavaScript -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -185,26 +200,8 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
-
-    <!-- Active js -->
-    <script src="js/active.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 JavaScript -->
-    <script src="../assets/plugins/d3/d3.min.js"></script>
-    <script src="../assets/plugins/c3-master/c3.min.js"></script>
-    <!-- Chart JS -->
-    <script src="js/dashboard.js"></script>
-
-
     <script>
-        // var tile = document.getElementById("")
-        $('.close-icon').on('click',function() {
-            $(this).closest('.card').fadeOut();
-        });
     </script>
 </body>
+
 </html>

@@ -28,6 +28,6 @@
         }
         // header('Content-type: application/json');
         // echo json_encode($response_array);
-        // pg_close($connection);
+        pg_close($connection);
     }
 ?>
