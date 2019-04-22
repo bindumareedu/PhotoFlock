@@ -64,7 +64,7 @@
                     <div class="main-menu h-100">
                         <nav class="navbar h-100 navbar-expand-lg">
                             <!-- Logo Area  -->
-                            <a class="navbar-brand" href="index.html"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
+                            <a class="navbar-brand" href="#"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 
@@ -128,9 +128,20 @@
                         </form>
                     </div> -->
                 </div>
-                <form method="post" action="save_path.php" enctype='multipart/form-data' style="margin-bottom:3%;">
+                <form class="form-inline" method="post" action="save_path.php" enctype='multipart/form-data' style="margin-bottom:3%;">
                     <input type="hidden" name="username" value="<?php echo htmlspecialchars($username);?>">
                     <input type='file' name='file' />
+                    <select class="form-control" name="category" style="margin-right:0.5%">
+                        <option value="" selected disabled>Category</option>
+                        <option>Portraits</option>
+                        <option>Weddings</option>
+                        <option>Studio</option>
+                        <option>Fashion</option>
+                        <option>Lifestyle</option>
+                        <option>Nature</option>
+                        <option>Other</option>
+                    </select>
+                    <input type="text" placeholder="tags" class="form-control form-control-line" name="tags" style="margin-right:0.5%">
                     <input class="btn btn-success" type='submit' value='Upload Photos' name='but_upload'>
                     <!-- <button class="btn btn-success" type='submit'name='but_upload'>Upload Photos</button> -->
                 </form>

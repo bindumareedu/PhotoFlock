@@ -1,9 +1,11 @@
 <?php
 require("backend/connect.php");
 
-if(isset($_POST['but_upload']) and isset($_POST['username'])){
+if(isset($_POST['but_upload']) and isset($_POST['username']) and isset($_POST['category']) and isset($_POST['tags'])){
 
   $photographer = $_POST['username'];
+  $category = $_POST['category'];
+  $tags = $_POST['tags'];
   $name = $_FILES['file']['name'];
   $target_dir = "upload/";
   $target_file = $target_dir . basename($_FILES["file"]["name"]);
@@ -21,7 +23,7 @@ if(isset($_POST['but_upload']) and isset($_POST['username'])){
      move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
      chmod($target_dir.$name, 0755);
      // Insert record
-     $query = "INSERT INTO public.imagestore(name,photographer_id) values('".$name."','".$photographer."')";
+     $query = "INSERT INTO public.imagestore(name,photographer_id,category,tags) values('".$name."','".$photographer."','".$category."','".$tags."')";
      $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
         // if($result){
         //     echo 'success';

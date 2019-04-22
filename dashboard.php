@@ -64,7 +64,7 @@
                     <div class="main-menu h-100">
                         <nav class="navbar h-100 navbar-expand-lg">
                             <!-- Logo Area  -->
-                            <a class="navbar-brand" href="index.html"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
+                            <a class="navbar-brand" href="#"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 

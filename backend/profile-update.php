@@ -3,9 +3,10 @@
     session_start();
     require('connect.php');
 
-    if (isset($_GET['username']) and isset($_GET['name']) and isset($_GET['email'])){
+    if (isset($_GET['username']) and isset($_GET['fname']) and isset($_GET['lname']) and isset($_GET['email'])){
         $photographer = $_GET['username'];
-        $name = $_GET['name'];
+        $fname = $_GET['fname'];
+        $lname = $_GET['lname'];
         $email = $_GET['email'];
         // $msg_subject = $_GET['Subject'];
 
@@ -59,7 +60,7 @@
 
         // echo $username;
         
-        $query = "UPDATE public.users_info SET profile_email='$email',lname = '$name',facebook_url = '$facebook',twitter_url = '$twitter',pinterest_url = '$pinterest',instagram_url = '$instagram',pnum = '$phone',designation = '$title',about = '$about',address = '$address',projects = '$projects',clients = '$clients' WHERE email = '$photographer'";
+        $query = "UPDATE public.users_info SET profile_email='$email',fname = '$fname',lname = '$lname',facebook_url = '$facebook',twitter_url = '$twitter',pinterest_url = '$pinterest',instagram_url = '$instagram',pnum = '$phone',designation = '$title',about = '$about',address = '$address',projects = '$projects',clients = '$clients' WHERE email = '$photographer'";
         $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
         if($result){
             echo 'success';

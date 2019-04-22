@@ -54,8 +54,8 @@
                 <img src="./img/core-img/side.jpg" class="portfolioimg"  height="-webkit-fill-available" />
             </div>
             <div class="sidenav" >
-                <a id="side" href="portfolio.html">About</a>
-                <a id="side" href="gallery.html">Gallery</a>
+                <a id="side" href="portfolio.php">About</a>
+                <a id="side" href="gallery.php">Gallery</a>
                 <a id="side" href="skills.html">Skills</a>
                 <a  id="active" href="#">Contact Me</a>
             </div>            

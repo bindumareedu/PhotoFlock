@@ -49,7 +49,7 @@
             </div>
             <div class="sidenav" >
                 <a id="active" href="#">About</a>
-                <a id="side" href="gallery.html">Gallery</a>
+                <a id="side" href="gallery.php">Gallery</a>
                 <a id="side" href="skills.html">Skills</a>
                 <a  id="side" href="portfoliocontact.php">Contact Me</a>
             </div>            

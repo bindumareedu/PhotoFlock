@@ -71,7 +71,7 @@
                     <div class="main-menu h-100">
                         <nav class="navbar h-100 navbar-expand-lg">
                             <!-- Logo Area  -->
-                            <a class="navbar-brand" href="index.html"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
+                            <a class="navbar-brand" href="#"><img src="img/core-img/logo.png"  width="240px" height="100px" alt="Logo" style="margin-left: -25%;"></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 
@@ -143,9 +143,15 @@
                                 <form class="form-horizontal form-material" id="updateForm">
                                 <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($username);?>" >
                                     <div class="form-group">
-                                        <label class="col-md-12">Full Name</label>
+                                        <label class="col-md-12">First Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line" id="name">
+                                            <input type="text" placeholder="Johnathan" class="form-control form-control-line" id="fname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Last Name</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="Doe" class="form-control form-control-line" id="lname">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -292,7 +298,8 @@
             // console.log("Hello");
             event.preventDefault();
             var username = document.getElementById("username").value;
-            var name = document.getElementById("name").value;
+            var fname = document.getElementById("fname").value;
+            var lname = document.getElementById("lname").value;
             var email = document.getElementById("email").value;
             var facebook = document.getElementById("facebook").value;
             var twitter = document.getElementById("twitter").value;
@@ -327,7 +334,8 @@
                 type: 'GET',
                 data: {
                     username: username,
-                    name: name,
+                    fname: fname,
+                    lname: lname,
                     email: email,
                     facebook: facebook,
                     twitter: twitter,
