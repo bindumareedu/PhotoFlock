@@ -22,7 +22,7 @@
     if (isset($_SESSION['username'])){
       // I'm re-directing it to index page for now.
       // But needs to be pointed to DASHBOARD.
-      header('Location: ../pages-profile.php');
+      header('Location: ../newprofile.php');
     }
     else{
       echo "something went wrong, please try again!";

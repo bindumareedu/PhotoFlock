@@ -20,6 +20,16 @@
 
     <!-- Responsive CSS -->
     <link href="css/responsive.css" rel="stylesheet">
+    <style>
+     #map {
+        height: 600px;  /* The height is 400 pixels */
+        width: 100%; 
+        margin:32px 0 ;/* The width is the width of the web page */
+        position:relative;
+        overflow:hidden;
+
+       }
+       </style>
 
 </head>
 
@@ -150,7 +160,7 @@ act as a photographer’s resume which may help them land in their dream job.
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-10">
-                    <div id="googleMap"></div>
+                    <div id="map"></div>
                     <!-- Contact Info -->
                     <div class="contact-core-info d-flex align-items-center wow fadeInLeftBig" data-wow-delay="1s" data-wow-duration="1000ms">
                         <div class="contactInfo">
@@ -235,7 +245,36 @@ act as a photographer’s resume which may help them land in their dream job.
     <script src="js/active.js"></script>
     <!-- Google Maps -->
  
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUA3MSCu-0oU8aj5tAlMy96JPrdZ28Vg8&callback=initMap"></script>
+                    <script>
+    function initMap() {
+//   var address="47408";
+//   var geocoder = new google.maps.Geocoder();
+// var latitude;
+// var longitude;
+//   geocoder.geocode( { 'address': address}, function(results, status) {
+
+// if (status == google.maps.GeocoderStatus.OK) {
+//      latitude = results[0].geometry.location.lat();
+//      longitude = results[0].geometry.location.lng();
+//     } 
+//     else{
+//         console.log("unknown error");
+//     }
+// });
+// console.log("latitude",latitude);
+  var uluru = {lat: 41.881832,lng: -87.623177};
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 8, center: uluru});
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: uluru, map: map});
+     }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQmmzg6qwEu7XPe1tzXh5dSJtLlIurcfo&callback=initMap">
+        </script>
+
+
+    {% comment %} <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUA3MSCu-0oU8aj5tAlMy96JPrdZ28Vg8&callback=initMap"></script> {% endcomment %}
     
     <script src="js/map-active.js"></script>
 
