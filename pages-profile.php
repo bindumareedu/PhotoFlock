@@ -103,6 +103,7 @@
                         <li> <a class="waves-effect waves-dark" href="pages-profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="dashboard.php" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="photos.php" aria-expanded="false"><i class="mdi mdi-image"></i><span class="hide-menu">Photos</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="profile-photo.php" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Profile Photo</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

@@ -40,8 +40,26 @@
                 session_start();
                 if (isset($_GET['id'])){
                     $id = $_GET['id'];
-                    $_SESSION['username'] = $id;    
+                    $_SESSION['username'] = $id; 
+                    require('backend/connect.php');
+                    
+                    $query="SELECT fname,lname,about, designation, profilepic FROM public.users_info WHERE email='$id'";
+                    $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                    if(pg_num_rows($result) > 0){
+                        $arr=pg_fetch_all($result);
+                        $fname = $arr[0]['fname'];
+                        $lname = $arr[0]['lname'];
+                        $about = $arr[0]['about'];
+                        $designation = $arr[0]['designation'];
+                        $profilepic = 'profile/'.$arr[0]['profilepic'];
+                    }
+                    else {
+                        echo '<script language="javascript">';
+                        echo "alert('User doesn't exist!')";
+                        echo '</script>';
+                    }
                 }
+                pg_close($connection);
             ?>
             <!-- Sidebar with image -->
             <div class="imgnav" >
@@ -49,11 +67,10 @@
             </div>
             <div class="sidenav" >
             <?php
-              echo  '<a id="active" href="portfolio.php?id=' .$id. '">About</a>' ;
-             echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
-             echo   '<a id="side" href="skills.php?id=' .$id . '">Skills</a>' ;
+             echo  '<a id="active" href="portfolio.php?id=' .$id. '">About</a>' ;
+             echo  '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
+             echo  '<a id="side" href="skills.php?id=' .$id . '">Skills</a>' ;
              echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
-            
             ?>   
             </div>            
             <div class="main">
@@ -62,15 +79,15 @@
                 <div class="col-10">
                     <div class="single-blog-area text-center mb-100 wow fadeInUpBig" data-wow-delay="100ms" data-wow-duration="1s">
                         <div class="blog-thumbnail mb-60">
-                            <img src='./W3.CSS Template_files/profile_girl.jpg' alt="" width="250px" height="320px" width="50%">
+                            <img src=<?php echo htmlspecialchars($profilepic);?> alt="" width="250px" height="320px" width="50%">
                         </div>
                         <div class="blog-content">
                         <br/>
                             <span></span>
-                            <h2>Jane Doe</h2>
+                            <h2><?php echo htmlspecialchars($fname." ".$lname);?></h2>
                             <!-- <a href="#" class="post-date">Dec 01, 2017</a> -->
-                            <a href="#" class="post-author">Photographer and Web Designer</a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis. Vestibulum id orci ligula. Sed tempor, nunc ut sodales pulvinar, mauris ante euismod magna, at elementum lectus leo sed enim. Praesent dictum suscipit tincidunt. Nulla facilisi. Aenean in mollis orci. Ut interdum vulputate ante a egestas. Pellentesque varius purus malesuada arcu semper vehicula. </p>
+                            <a href="#" class="post-author"><?php echo htmlspecialchars($designation);?></a>
+                            <p><?php echo htmlspecialchars($about);?> </p>
                         </div>
                     </div>
                 </div><br/>

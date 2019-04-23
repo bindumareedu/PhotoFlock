@@ -119,7 +119,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 align-self-center">
-                        <h3 class="text-themecolor">Photos</h3>
+                        <h3 class="text-themecolor">Profile Photo</h3>
                         <!-- <button class="btn btn-success">Upload Photos</button> -->
                     </div>
                     <!-- <div class="col-md-6">
@@ -129,23 +129,7 @@
                         </form>
                     </div> -->
                 </div>
-                <form class="form-inline" method="post" action="save_path.php" enctype='multipart/form-data' style="margin-bottom:3%;">
-                    <input type="hidden" name="username" value="<?php echo htmlspecialchars($username);?>">
-                    <input type='file' name='file' />
-                    <select class="form-control" name="category" style="margin-right:0.5%">
-                        <option value="" selected disabled>Category</option>
-                        <option>Portraits</option>
-                        <option>Weddings</option>
-                        <option>Studio</option>
-                        <option>Fashion</option>
-                        <option>Lifestyle</option>
-                        <option>Nature</option>
-                        <option>Other</option>
-                    </select>
-                    <input type="text" placeholder="tags" class="form-control form-control-line" name="tags" style="margin-right:0.5%">
-                    <input class="btn btn-success" type='submit' value='Upload Photos' name='but_upload'>
-                    <!-- <button class="btn btn-success" type='submit'name='but_upload'>Upload Photos</button> -->
-                </form>
+                
                 <div class="w3-row-padding">
                     <div class="w3-half ">
                         <?php 
@@ -155,28 +139,38 @@
                                 $username = $_SESSION['username'];
                                 require('backend/connect.php');
                                 
-                                $query="SELECT name FROM public.imagestore WHERE photographer_id='$username'";
+                                $query="SELECT profilepic FROM public.users_info WHERE email='$username'";
                                 $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
                                 if(pg_num_rows($result) > 0){
                                     $i=0;
                                     $arr=pg_fetch_all($result);
-                                    while($i < pg_num_rows($result))
+                                    if($arr[0]['profilepic'] != "")
                                     {
-                                        $img_file="upload/".$arr[$i]['name'];
+                                        $img_file="profile/".$arr[0]['profilepic'];
                                         echo '<img src="'.$img_file.'">';
-                                        $i=$i+1;
+                                        // $i=$i+1;
+                                    }
+                                    else{
+                                        echo 'No location';
                                     }
                                 }
                                 else {
-                                    echo '<script language="javascript">';
-                                    echo "alert('No images!')";
-                                    echo '</script>';
+                                    // echo "no result";
+                                    // echo '<script language="javascript">';
+                                    // echo "alert('No images!')";
+                                    // echo '</script>';
                                 }
                             }
                             pg_close($connection);
                         ?>
                     </div>
                 </div>
+
+                <form class="form-inline" method="post" action="backend/save_profile_photo.php" enctype='multipart/form-data' style="margin-bottom:3%;">
+                    <input type="hidden" name="username" value="<?php echo htmlspecialchars($username);?>">
+                    <input type='file' name='file' />
+                    <input class="btn btn-success" type='submit' value='Upload Profile Photo' name='but_upload'>
+                </form>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->

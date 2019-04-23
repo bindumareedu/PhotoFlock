@@ -36,60 +36,106 @@
         </head>
         <body>
         <!-- get the id from the previous page -->
-        <?php
+            <?php
                 if (isset($_GET['id'])){
                     $id = $_GET['id'];
-                    $_SESSION['username'] = $id;    
+                    $_SESSION['username'] = $id; 
+                    require('./backend/connect.php');
+                        
+                    $query="SELECT projects,clients FROM public.users_info WHERE email='$id'";
+                    $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                    // $arr=pg_fetch_all($result);
+                    if(pg_num_rows($result) > 0){
+                        $arr=pg_fetch_all($result);
+                        $projects=$arr[0]['projects'];
+                        $clients=$arr[0]['clients'];
+                        // $i=0;
+                        // $arr=pg_fetch_all($result);
+                        // while($i < pg_num_rows($result))
+                        // {
+                        //     $skill=$arr[$i]['skill_name'];
+                        //     $strength=$arr[$i]['strength'];
+                    
+                        //     echo '<p class="w3-wide">'.ucfirst($skill).'</p>';
+                        //     echo '<div class="w3-light-grey">';
+                        //     echo '<div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:'.$strength.'%">'.$strength.'%</div>';
+                        //     echo '</div><br/>';
+                        //     $i=$i+1;
+                        // }
+                    }
+                    else {
+                        echo '<script language="javascript">';
+                        echo "alert('No messages!')";
+                        echo '</script>';
+                    } 
+                    pg_close($connection);  
                 }
+                
             ?>
 
             <!-- Sidebar with image -->
-             <div class="imgnav" >
+            <div class="imgnav" >
             <img src="./img/core-img/side.jpg" class="portfolioimg"  height="-webkit-fill-available" />
                        </div>
-<div class="sidenav" >
-<?php
-              echo  '<a id="side" href="portfolio.php?id=' .$id. '">About</a>' ;
-             echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
-             echo   '<a id="active" href="skills.php?id=' .$id . '">Skills</a>' ;
-            echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
-            
+            <div class="sidenav" >
+            <?php
+                echo  '<a id="side" href="portfolio.php?id=' .$id. '">About</a>' ;
+                echo   '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
+                echo   '<a id="active" href="skills.php?id=' .$id . '">Skills</a>' ;
+                echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
             ?>  
 </div>            
 <div class="main" style="margin-left:300px;padding-top:150px; ">
             <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="about">
-
-                        <p class="w3-wide">Photography</p>
-                <div class="w3-light-grey">
-                <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:95%">95%</div>
-                </div>
-                <br/>
-                <p class="w3-wide">Web Design</p>
-                <div class="w3-light-grey">
-                <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:85%">85%</div>
-                </div>
-                <br/>
-                <p class="w3-wide">Photoshop</p>
-                <div class="w3-light-grey">
-                <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:80%">80%</div>
-                </div><br>
-                </div>
+                <?php 
+                    session_start();
+                    if(isset($_SESSION['username'])){
+                        
+                        $username = $_SESSION['username'];
+                        require('./backend/connect.php');
+                        
+                        $query="SELECT skill_name,strength FROM public.skills WHERE photographer_id='$username'";
+                        $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                        // $arr=pg_fetch_all($result);
+                        if(pg_num_rows($result) > 0){
+                            $i=0;
+                            $arr=pg_fetch_all($result);
+                            while($i < pg_num_rows($result))
+                            {
+                                $skill=$arr[$i]['skill_name'];
+                                $strength=$arr[$i]['strength'];
+                        
+                                echo '<p class="w3-wide">'.ucfirst($skill).'</p>';
+                                echo '<div class="w3-light-grey">';
+                                echo '<div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:'.$strength.'%">'.$strength.'%</div>';
+                                echo '</div><br/>';
+                                $i=$i+1;
+                            }
+                        }
+                        else {
+                            // echo '<script language="javascript">';
+                            // echo "alert('No messages!')";
+                            // echo '</script>';
+                        }
+                    }
+                    pg_close($connection);
+                ?>
                 <div class="w3-row w3-center w3-dark-grey w3-padding-16 w3-section">
                 <div class="w3-quarter w3-section">
-                    <span class="w3-xlarge">14+</span><br>
-                    Partners
+                    <span class="w3-xlarge"></span><br>
+                    
                 </div>
                 <div class="w3-quarter w3-section">
-                    <span class="w3-xlarge">55+</span><br>
+                    <span class="w3-xlarge"><?php echo htmlspecialchars($projects);?></span><br>
                     Projects Done
                 </div>
                 <div class="w3-quarter w3-section">
-                    <span class="w3-xlarge">89+</span><br>
+                    <span class="w3-xlarge"><?php echo htmlspecialchars($clients);?></span><br>
                     Happy Clients
                 </div>
                 <div class="w3-quarter w3-section">
-                    <span class="w3-xlarge">150+</span><br>
-                    Meetings
+                    <span class="w3-xlarge"></span><br>
+                    
                 </div>
                 </div>
                 </div>
