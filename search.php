@@ -24,23 +24,10 @@
 </head>
 
 <body>
+    
     <?php
-        require('connect.php');
 
         $data = $_GET['search'];
-
-        $query="SELECT * FROM imagestore WHERE (photographer_id like '%".$data."%') or (category like '%".$data."%') or (tags like '%".$data."%')";
-        $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
-
-        if($result){
-                echo "success";
-        }
-
-        else {
-                echo "error";
-        }
-
-        pg_close($connection);
 
     ?>
 
@@ -80,7 +67,7 @@
                                 </ul>
                                 <!-- Search Form -->
                                 <div class="header-search-form ml-auto">
-                                    <form action="backend/lookup.php">
+                                    <form action="search.php">
                                         <input type="search" class="form-control" placeholder="Input your keyword then press enter..." id="search" name="search">
                                         <input class="d-none" type="submit" value="submit">
                                     </form>
@@ -126,101 +113,52 @@
 
             <div class="row portfolio-column">
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits life">
-                    <img src="img/bg-img/p1.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p1.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+            <?php
+                require('backend/connect.php');
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="img/bg-img/p2.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p2.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+                // $data = $_GET['search'];
+                // echo '<script language="javascript">';
+                //     echo "alert('Aloha!')";
+                //     echo '</script>';
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p3.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p3.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings life">
-                    <img src="img/bg-img/p4.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p4.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+                if($data != ""){
+                    $query="SELECT * FROM public.imagestore WHERE (photographer_id like '%".$data."%') or (category like '%".$data."%') or (tags like '%".$data."%')";  
+                    // echo '<script language="javascript">';
+                    // echo "alert('data=".$data."!')";
+                    // echo '</script>';
+                }
+                else{
+                    $query="SELECT * FROM public.imagestore";  
+                    // echo '<script language="javascript">';
+                    // echo "alert('Search empty')";
+                    // echo '</script>';
+                }
+                $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                if(pg_num_rows($result) > 0){
+                    $i=0;
+                    $arr=pg_fetch_all($result);
+                    while($i < pg_num_rows($result))
+                    {
+                        $img_file="upload/".$arr[$i]['name'];
+                        $category=$arr[$i]['category'];
+                        echo '<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item '.strtolower($category).' life">';
+                        echo '<img src="'.$img_file.'" alt="">';
+                        echo '<div class="hover_overlay">';
+                        echo '<a class="gallery_img" href="'.$img_file.'"><i class="fa fa-eye"></i></a>';
+                        echo '</div></div>';
+                        $i=$i+1;
+                    }
+                }
+                else {
+                    // echo '<script language="javascript">';
+                    // echo "alert('No result!')";
+                    // echo '</script>';
+                }
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="img/bg-img/p5.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p5.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+                pg_close($connection);
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p6.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p6.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio">
-                    <img src="img/bg-img/p7.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p7.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
-                    <img src="img/bg-img/p8.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p8.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
-                    <img src="img/bg-img/p9.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p9.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p10.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p10.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
-                    <img src="img/bg-img/p11.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p11.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
-                    <img src="img/bg-img/p12.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p12.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+            ?>
             </div>
 
             <div class="row">

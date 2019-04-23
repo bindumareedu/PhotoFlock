@@ -37,5 +37,6 @@ if(isset($_POST['but_upload']) and isset($_POST['username'])){
   }
 
 }
+header('Location:../profile-photo.php'); 
 pg_close($connection);
 ?>

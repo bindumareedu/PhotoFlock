@@ -116,12 +116,12 @@
                                 $tag=$arr[$i]['designation'];
                                 $about=$arr[$i]['about'];
                                 $id = $arr[$i]['email'];
-                                $profilepic = 'profile/'.$arr[i]['profilepic'];
+                                $profilepic = 'profile/'.$arr[$i]['profilepic'];
 
                                 echo '<div class="col-10">';
                                 echo '<div class="single-blog-area text-center mb-100 wow fadeInUpBig" data-wow-delay="100ms" data-wow-duration="1s">';
                                 echo   '<div class="blog-thumbnail mb-100">';
-                                echo    '<img src='.htmlspecialchars($profile).'  alt="" width="250px" height="320px" width="50%">';
+                                echo    '<img src='.$profilepic.'  alt="" width="250px" height="320px" width="50%">';
                                 echo '</div>';
                                 echo '<div class="blog-content">';
                                 echo    '<span></span>';
