@@ -33,7 +33,7 @@ if($result){
 //header('Location: http://ella.ils.indiana.edu/~smareedu/project/mail.php');
 $subject = "Activate your account at Photoflock";
 $link="<a href='http://ella.ils.indiana.edu/~smareedu/project/login.html'>link</a>";
-$txt = "Hello $lname $fname," . "\r\n" . "Welcome to Photoflock. Please click this http://ella.ils.indiana.edu/~smareedu/project/login.html to activate your account" . "\r\n\n" . "-Photoflock Team" ;
+$txt = "Hello $lname $fname," . "\r\n" . "Welcome to Photoflock. Please click this http://ella.ils.indiana.edu/~smareedu/project/pages-profile.php to activate your account" . "\r\n\n" . "-Photoflock Team" ;
 $headers = "From: photoflock@photoflock.com" . "\r\n" ;
 mail($username,$subject,$txt,$headers);
 header('Location: http://ella.ils.indiana.edu/~smareedu/project/registersuccess.html');
