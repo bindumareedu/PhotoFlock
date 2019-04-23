@@ -36,10 +36,26 @@
         </head>
         <body>
             <?php  
-                if (isset($_SESSION['username'])){
-                    $id = $_GET['username'];
+                if (isset($_GET['id'])){
+                    $id = $_GET['id'];
                     $username=$id;
                     $_SESSION['username'] = $id;
+
+                    require('backend/connect.php');
+                    
+                    $query="SELECT address,profile_email,pnum FROM public.users_info WHERE email='$username'";
+                    $result = pg_query($connection, $query) or  die('Query failed: ' . pg_last_error());
+                    if(pg_num_rows($result) > 0){
+                        $arr=pg_fetch_all($result);
+                        $address = $arr[0]['address'];
+                        $profile_email = $arr[0]['profile_email'];
+                        $pnum = $arr[0]['pnum'];
+                    }
+                    else {
+                        // echo '<script language="javascript">';
+                        // echo "alert('User doesn't exist!')";
+                        // echo '</script>';
+                    }
                 }
                 if(isset($_GET['message'])){
                     $msg_status = $_GET['message'];
@@ -49,6 +65,7 @@
                         echo '</script>';
                     }
                 }
+                pg_close($connection);
             ?>
             <!-- Sidebar with image -->
             <div class="imgnav" >
@@ -68,9 +85,9 @@
                 <div class="w3-padding-32 w3-content w3-text-grey" id="contact" style="margin-bottom:0px;margin-left:180px;width:fit-content;margin-right:50px">
 
                     <div class="w3-section">
-                        <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Chicago, US</p>
-                        <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +00 151515</p>
-                        <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: mail@mail.com</p>
+                        <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i><?php echo htmlspecialchars($address);?></p>
+                        <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: <?php echo htmlspecialchars($pnum);?></p>
+                        <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: <?php echo htmlspecialchars($profile_email);?></p>
                     </div>
 
                     <!-- Image of location/map -->
