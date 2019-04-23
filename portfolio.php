@@ -70,7 +70,7 @@
              echo  '<a id="active" href="portfolio.php?id=' .$id. '">About</a>' ;
              echo  '<a id="side" href="gallery.php?id=' .$id. '">Gallery</a>' ;
              echo  '<a id="side" href="skills.php?id=' .$id . '">Skills</a>' ;
-             echo  '<a  id="side" href="portfoliocontact.php?id=' .$id . '">Contact Me</a>';
+             echo  '<a  id="side" href="portfoliocontact.php?id='.$id .'">Contact Me</a>';
             ?>   
             </div>            
             <div class="main">

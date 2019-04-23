@@ -80,6 +80,34 @@
             }
         }
 
+    //     if(!empty($address)){
+    //         //Formatted address
+    //         $formattedAddr = str_replace(' ','+',$address);
+    //         //Send request and receive json data by address
+    //         $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddr.'&sensor=false'); 
+    //         $output = json_decode($geocodeFromAddr);
+    //         //Get latitude and longitute from json data
+    //         $data['latitude']  = $output->results[0]->geometry->location->lat; 
+    //         $data['longitude'] = $output->results[0]->geometry->location->lng;
+    //         //Return latitude and longitude of the given address
+    //         if(!empty($data)){
+    //             $lat= $data['latitude'] ;
+    //             $lng= $data['longitude']; 
+    //         }else{
+    //             return false;
+    //         }
+    //     }else{
+    //         echo "Error"; 
+    //     }
+    // echo "$lat";
+    // // $query3="UPDATE public.users_info SET latitude='$lat',longitude='$lng' WHERE email = '$photographer'";
+    // // $result3 = pg_query($connection, $query3) or  die('Query failed: ' . pg_last_error());
+    // // if(!$result3){
+    // //     echo 'failed';
+    // // }
+
+
+
         pg_close($connection);
         // echo 'success';
     }
